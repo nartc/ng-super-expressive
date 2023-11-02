@@ -58,7 +58,7 @@ export default class Playground {
 			return;
 		}
 
-		if (!value.endsWith('toRegex()') && !value.endsWith('toRegexString()')) {
+		if (!value.includes('toRegex')) {
 			alert('Please call toRegex() or toRegexString()');
 			return;
 		}

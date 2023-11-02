@@ -18,10 +18,13 @@ import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
 export class Editor {
 	@Input({ required: true }) onInit!: (editor: editor.IStandaloneCodeEditor) => void;
 
-	protected editorOptions = {
+	protected editorOptions: editor.IStandaloneEditorConstructionOptions = {
 		theme: 'vs-dark',
 		language: 'typescript',
 		fontSize: 16,
+		fontFamily: 'Geist Mono',
+		formatOnType: true,
+		formatOnPaste: true,
 	};
 	protected isInit = signal(false);
 
