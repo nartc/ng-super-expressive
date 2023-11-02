@@ -1,3 +1,4 @@
+import { DOCUMENT } from '@angular/common';
 import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular/core';
 import type { editor } from 'monaco-editor';
 import { Editor } from './editor/editor';
@@ -17,9 +18,12 @@ import { Result } from './result/result';
 })
 export default class Playground {
 	private destroyRef = inject(DestroyRef);
+	private window = inject(DOCUMENT).defaultView!;
+	private regexOutput = injectOutput();
 
-	protected regexOutput = injectOutput();
 	protected onEditorInit = (editor: editor.IStandaloneCodeEditor) => {
+		const { monaco } = this.window;
+
 		const initialValue = 'SuperExpressive()';
 		editor.setValue(initialValue);
 		editor.focus();
@@ -29,8 +33,8 @@ export default class Playground {
 			id: 'execute',
 			label: 'Execute',
 			keybindings: [
-				window.monaco.KeyMod.WinCtrl | window.monaco.KeyCode.Enter,
-				window.monaco.KeyMod.CtrlCmd | window.monaco.KeyCode.Enter,
+				monaco.KeyMod.WinCtrl | monaco.KeyCode.Enter,
+				monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter,
 			],
 			contextMenuGroupId: '1_modification',
 			contextMenuOrder: 1,
