@@ -13,7 +13,7 @@
 		"declaration": false,
 		"downlevelIteration": true,
 		"experimentalDecorators": true,
-		"moduleResolution": "Bundler",
+		"moduleResolution": "node",
 		"importHelpers": true,
 		"verbatimModuleSyntax": true,
 		"target": "ES2022",
