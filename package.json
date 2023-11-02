@@ -32,6 +32,7 @@
 		"@types/express": "^4.17.17",
 		"@types/node": "^18.18.0",
 		"autoprefixer": "^10.4.16",
+		"geist": "^1.0.0",
 		"postcss": "^8.4.31",
 		"prettier": "^3.0.3",
 		"prettier-plugin-organize-imports": "^3.2.3",
