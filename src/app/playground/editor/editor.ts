@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input, signal } from '@angular/core';
+import type { editor } from 'monaco-editor';
 import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
 
 @Component({
@@ -6,14 +7,26 @@ import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
 	standalone: true,
 	templateUrl: './editor.html',
 	host: { class: 'contents' },
+	styles: `
+        .super-expressive-editor,
+        .super-expressive-editor ::ng-deep .editor-container {
+            @apply h-full;
+        }
+    `,
 	imports: [MonacoEditorModule],
 })
 export class Editor {
-	editorOptions = {
+	@Input({ required: true }) onInit!: (editor: editor.IStandaloneCodeEditor) => void;
+
+	protected editorOptions = {
 		theme: 'vs-dark',
 		language: 'typescript',
 		fontSize: 16,
 	};
+	protected isInit = signal(false);
 
-	constructor() {}
+	protected onMonacoEditorInit(editor: editor.IStandaloneCodeEditor) {
+		this.isInit.set(true);
+		this.onInit(editor);
+	}
 }

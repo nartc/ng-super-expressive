@@ -25,6 +25,7 @@
 		"ngx-monaco-editor-v2": "^16.0.1",
 		"ngxtension": "0.14.1",
 		"rxjs": "~7.8.0",
+		"super-expressive": "^2.0.0",
 		"tslib": "^2.3.0",
 		"zone.js": "~0.14.0"
 	},

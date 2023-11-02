@@ -50,6 +50,9 @@ dependencies:
   rxjs:
     specifier: ~7.8.0
     version: 7.8.1
+  super-expressive:
+    specifier: ^2.0.0
+    version: 2.0.0
   tslib:
     specifier: ^2.3.0
     version: 2.6.2
@@ -7019,6 +7022,10 @@ packages:
       pirates: 4.0.6
       ts-interface-checker: 0.1.13
     dev: true
+
+  /super-expressive@2.0.0:
+    resolution: {integrity: sha512-jtCS9dEBPxtq4jd0v33LnRPI0kYQP1npHxzl+Pk+IOuufIn5Pyo0AXiU6ypvhO3vZevqEE9AE3YDD7aWp+RxRg==}
+    dev: false
 
   /supports-color@5.5.0:
     resolution: {integrity: sha512-QjVjwdXIt408MIiAqCX4oUKsgU2EqAGzs2Ppkm4aQYbjm+ZEWEcW4SfFNTr4uMNZma0ey4f5lgLrkB0aX0QMow==}

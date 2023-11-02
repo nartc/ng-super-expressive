@@ -1,11 +1,13 @@
 <div class="flex flex-col w-screen h-screen">
 	<app-playground-nav />
 	<div class="flex flex-grow">
-		<div class="w-full grid col-gap-4 grid-cols-1 p-4 lg:grid-cols-5">
+		<div class="w-full grid gap-4 grid-cols-1 p-4 lg:grid-cols-5">
 			<section class="col-auto lg:col-span-3">
-				<app-playground-editor />
+				<app-playground-editor [onInit]="onEditorInit" />
 			</section>
-			<section class="col-auto lg:col-span-2">result</section>
+			<section class="col-auto lg:col-span-2">
+				<app-playground-result />
+			</section>
 		</div>
 	</div>
 	<app-playground-footer />

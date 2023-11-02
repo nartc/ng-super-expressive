@@ -1,33 +1,101 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { NGX_MONACO_EDITOR_CONFIG, type NgxMonacoEditorConfig } from 'ngx-monaco-editor-v2';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular/core';
+import type { editor } from 'monaco-editor';
 import { Editor } from './editor/editor';
 import { Footer } from './footer/footer';
+import { provideNgxMonacoEditorConfig } from './monaco-editor-config';
 import { Nav } from './nav/nav';
-
-const monacoEditorConfig: NgxMonacoEditorConfig = {
-	onMonacoLoad: () => {
-		fetch('https://raw.githubusercontent.com/francisrstokes/super-expressive/master/index.d.ts')
-			.then((res) => res.text())
-			.then((dts) => {
-				dts = dts.replace('export = SuperExpressive;', '');
-				const libUri = 'ts:filename/super-expressive.d.ts';
-				window.monaco.languages.typescript.typescriptDefaults.addExtraLib(dts, libUri);
-				window.monaco.editor.createModel(dts, 'typescript', window.monaco.Uri.parse(libUri));
-			});
-	},
-};
+import { injectOutput, provideOutput } from './output';
+import { Result } from './result/result';
 
 @Component({
 	standalone: true,
 	templateUrl: './playground.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: { class: 'playground contents' },
-	providers: [
-		{
-			provide: NGX_MONACO_EDITOR_CONFIG,
-			useValue: monacoEditorConfig,
-		},
-	],
-	imports: [Nav, Footer, Editor],
+	providers: [provideNgxMonacoEditorConfig(), provideOutput()],
+	imports: [Nav, Footer, Editor, Result],
 })
-export default class Playground {}
+export default class Playground {
+	private destroyRef = inject(DestroyRef);
+
+	protected regexOutput = injectOutput();
+	protected onEditorInit = (editor: editor.IStandaloneCodeEditor) => {
+		const initialValue = 'SuperExpressive()';
+		editor.setValue(initialValue);
+		editor.focus();
+		editor.setPosition({ lineNumber: 1, column: initialValue.length + 1 });
+
+		const action = editor.addAction({
+			id: 'execute',
+			label: 'Execute',
+			keybindings: [
+				window.monaco.KeyMod.WinCtrl | window.monaco.KeyCode.Enter,
+				window.monaco.KeyMod.CtrlCmd | window.monaco.KeyCode.Enter,
+			],
+			contextMenuGroupId: '1_modification',
+			contextMenuOrder: 1,
+			run: (editor) => {
+				this.onExecute(editor.getValue());
+			},
+		});
+
+		this.destroyRef.onDestroy(action.dispose.bind(action));
+	};
+
+	private onExecute(rawValue: string) {
+		// NOTE: trim comments
+		const value = rawValue
+			.replace(/\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/gm, '')
+			.replace(/\n/g, '')
+			.trim();
+
+		if (!value.startsWith('SuperExpressive()')) {
+			alert('Snippet must start with SuperExpressive()');
+			return;
+		}
+
+		if (!value.endsWith('toRegex()') && !value.endsWith('toRegexString()')) {
+			alert('Please call toRegex() or toRegexString()');
+			return;
+		}
+
+		const regexFn = new Function(`return ${value}`);
+
+		try {
+			const output = regexFn();
+			console.log('[Debug Editor Value] -->', { value, output });
+			if (output instanceof RegExp) {
+				this.regexOutput.set(output);
+			} else {
+				this.regexOutput.set(parseRegex(output));
+			}
+		} catch (e) {
+			console.log('there is an error', e);
+		}
+	}
+}
+
+/**
+ * From https://github.com/IonicaBizau/regex-parser.js/blob/master/lib/index.js
+ * @param regexOutput {string}
+ */
+function parseRegex(regexOutput: string): RegExp {
+	if (typeof regexOutput !== 'string') {
+		throw new Error('Invalid input. Input must be a string');
+	}
+
+	// Parse input
+	const m = regexOutput.match(/(\/?)(.+)\1([a-z]*)/i);
+
+	if (m === null) {
+		throw new Error('Invalid input. Input must be a valid RegExp');
+	}
+
+	// Invalid flags
+	if (m[3] && !/^(?!.*?(.).*?\1)[gmixXsuUAJ]+$/.test(m[3])) {
+		return RegExp(regexOutput);
+	}
+
+	// Create the regular expression
+	return new RegExp(m[2], m[3]);
+}
