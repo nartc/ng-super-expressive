@@ -2,7 +2,8 @@ import { DOCUMENT } from '@angular/common';
 import { computed, effect, inject, signal } from '@angular/core';
 import { createInjectionToken } from 'ngxtension/create-injection-token';
 
-export type Theme = 'system' | 'light' | 'dark';
+const availableThemes = ['system', 'light', 'dark'] as const;
+export type Theme = (typeof availableThemes)[number];
 
 export const [injectTheme, , , provideThemeInitializer] = createInjectionToken(() => {
 	const document = inject(DOCUMENT);
@@ -50,14 +51,10 @@ export const [injectTheme, , , provideThemeInitializer] = createInjectionToken((
 			return currentTheme;
 		}),
 		changeTheme: () => {
-			const currentTheme = theme();
-			if (currentTheme === 'system') {
-				theme.set('light');
-			} else if (currentTheme === 'light') {
-				theme.set('dark');
-			} else {
-				theme.set('system');
-			}
+			// NOTE: just cycle through all available themes for now
+			const currentThemeIndex = availableThemes.findIndex((available) => available === theme());
+			const nextIndex = (currentThemeIndex + 1) % availableThemes.length;
+			theme.set(availableThemes[nextIndex]);
 		},
 		registerOnChange: callbacks.push.bind(callbacks),
 	};
