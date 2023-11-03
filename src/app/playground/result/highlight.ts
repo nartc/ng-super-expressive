@@ -19,7 +19,7 @@ export class Highlight {
 				return;
 			}
 
-			let _temp = testString.replace(/\n$/g, '\n\n');
+			const _temp = testString.replace(/\n$/g, '\n\n');
 			nativeElement.innerHTML = _temp.replace(
 				output,
 				'<mark class="bg-secondary text-gray-100">$&</mark>',
