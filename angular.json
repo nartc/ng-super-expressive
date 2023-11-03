@@ -64,7 +64,22 @@
 					"configurations": {
 						"production": {
 							"outputHashing": "all",
-							"baseHref": "/ng-super-expressive/"
+							"baseHref": "/ng-super-expressive/",
+							"assets": [
+								"src/favicon.ico",
+								"src/assets",
+								{
+									"glob": "**/*",
+									"input": "node_modules/geist/dist/fonts/geist-mono",
+									"output": "ng-super-expressive/assets/geist"
+								},
+								{
+									"glob": "**/*",
+									"input": "node_modules/monaco-editor",
+									"output": "/assets/monaco/"
+								}
+							],
+							"styles": ["src/font.prod.css", "src/styles.css"]
 						},
 						"development": {
 							"optimization": false,
