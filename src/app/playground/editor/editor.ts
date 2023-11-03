@@ -1,6 +1,7 @@
 import { Component, Input, signal } from '@angular/core';
 import type { editor } from 'monaco-editor';
 import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
+import { injectTheme } from '../../theme';
 
 @Component({
 	selector: 'app-playground-editor',
@@ -18,8 +19,10 @@ import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
 export class Editor {
 	@Input({ required: true }) onInit!: (editor: editor.IStandaloneCodeEditor) => void;
 
+	private theme = injectTheme();
+
 	protected editorOptions: editor.IStandaloneEditorConstructionOptions = {
-		theme: 'vs-dark',
+		theme: `vs-${this.theme.computedTheme()}`,
 		language: 'typescript',
 		fontSize: 16,
 		fontFamily: 'Geist Mono',
@@ -31,5 +34,10 @@ export class Editor {
 	protected onMonacoEditorInit(editor: editor.IStandaloneCodeEditor) {
 		this.isInit.set(true);
 		this.onInit(editor);
+		this.theme.registerOnChange((to) => {
+			editor.updateOptions({
+				theme: `vs-${to}`,
+			});
+		});
 	}
 }

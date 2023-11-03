@@ -4,6 +4,7 @@ const colors = require('tailwindcss/colors');
 /** @type {import('tailwindcss').Config} */
 module.exports = {
 	content: ['./src/**/*.{html,ts}'],
+	darkMode: 'class',
 	theme: {
 		fontFamily: {
 			sans: ['Inter', ...fontFamily.sans],
@@ -11,9 +12,22 @@ module.exports = {
 		},
 		extend: {
 			colors: {
-				primary: colors.yellow['400'],
-				secondary: colors.purple['400'],
-				background: colors.gray['800'],
+				primary: {
+					DEFAULT: colors.yellow['700'],
+					dark: colors.yellow['400'],
+				},
+				secondary: {
+					DEFAULT: colors.purple['700'],
+					dark: colors.purple['400'],
+				},
+				mark: {
+					DEFAULT: colors.yellow['300'],
+					dark: colors.purple['600'],
+				},
+				background: {
+					DEFAULT: colors.gray['100'],
+					dark: colors.gray['800'],
+				},
 			},
 		},
 	},

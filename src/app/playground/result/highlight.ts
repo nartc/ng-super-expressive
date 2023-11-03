@@ -22,7 +22,7 @@ export class Highlight {
 			const _temp = testString.replace(/\n$/g, '\n\n');
 			nativeElement.innerHTML = _temp.replace(
 				output,
-				'<mark class="bg-secondary text-gray-100">$&</mark>',
+				'<mark class="bg-mark dark:bg-mark-dark">$&</mark>',
 			);
 		});
 	}
