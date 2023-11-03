@@ -28,6 +28,7 @@ export class Editor {
 		fontFamily: 'Geist Mono',
 		formatOnType: true,
 		formatOnPaste: true,
+		autoDetectHighContrast: true,
 	};
 	protected isInit = signal(false);
 
