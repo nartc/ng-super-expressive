@@ -41,6 +41,7 @@
 		"postcss": "^8.4.31",
 		"prettier": "^3.0.3",
 		"prettier-plugin-organize-imports": "^3.2.3",
+		"prettier-plugin-tailwindcss": "^0.5.6",
 		"tailwindcss": "^3.3.5",
 		"typescript": "~5.2.2"
 	},
@@ -52,7 +53,8 @@
 		"tabWidth": 2,
 		"printWidth": 100,
 		"plugins": [
-			"prettier-plugin-organize-imports"
+			"prettier-plugin-organize-imports",
+			"prettier-plugin-tailwindcss"
 		]
 	}
 }

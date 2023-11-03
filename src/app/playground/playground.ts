@@ -8,6 +8,20 @@ import { Nav } from './nav/nav';
 import { injectOutput, provideOutput } from './output';
 import { Result } from './result/result';
 
+// const initialValue = 'SuperExpressive()';
+const initialValue = `
+SuperExpressive()
+    .allowMultipleMatches
+    .lineByLine
+    .oneOrMore.anyChar
+    .anyOf
+        .string('.ts')
+        .string('.tsx')
+    .end()
+    .endOfInput
+    .toRegex()
+`;
+
 @Component({
 	standalone: true,
 	templateUrl: './playground.html',
@@ -24,7 +38,6 @@ export default class Playground {
 	protected onEditorInit = (editor: editor.IStandaloneCodeEditor) => {
 		const { monaco } = this.window;
 
-		const initialValue = 'SuperExpressive()';
 		editor.setValue(initialValue);
 		editor.focus();
 		editor.setPosition({ lineNumber: 1, column: initialValue.length + 1 });

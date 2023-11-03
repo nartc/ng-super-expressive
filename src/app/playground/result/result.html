@@ -1,8 +1,8 @@
-<div class="flex flex-col flex-grow h-full">
-	<div class="group/output relative flex justify-center items-center overflow-hidden">
+<div class="flex h-full flex-grow flex-col">
+	<div class="group/output relative flex items-center justify-center overflow-hidden">
 		<label for="regexOutput" class="w-full">
 			<input
-				class="font-mono shadow cursor-default appearance-none rounded py-5 px-3 leading-tight focus:outline-none focus:shadow-outline tracking-widest transition-colors bg-gray-200 text-black dark:text-gray-200 dark:bg-gray-700 flex-grow w-full"
+				class="focus:shadow-outline w-full flex-grow cursor-default appearance-none rounded bg-gray-200 px-3 py-5 font-mono leading-tight tracking-widest text-black shadow transition-colors focus:outline-none dark:bg-gray-700 dark:text-gray-200"
 				[class]="output() ? 'transition-opacity group-hover/output:opacity-50 group-hover/output:cursor-not-allowed': ''"
 				type="text"
 				id="regexOutput"
@@ -13,8 +13,9 @@
 		</label>
 		@if (output(); as output) {
 		<button
-			class="absolute transition-transform translate-y-12 group-hover/output:translate-y-0 rounded bg-white dark:bg-gray-900 dark:text-white px-4 py-1"
+			class="absolute translate-y-12 rounded bg-white px-4 py-1 transition-transform group-hover/output:translate-y-0 dark:bg-gray-900 dark:text-white"
 			type="button"
+			tabindex="-1"
 			[cdkCopyToClipboard]="output.toString()"
 			(cdkCopyToClipboardCopied)="onCopied($event)"
 		>
@@ -22,17 +23,17 @@
 		</button>
 		}
 	</div>
-	<div class="wrapper h-full w-full relative mt-4 flex-grow-11">
-		<div class="h-full w-full absolute top-0 left-0 -z-10">
+	<div class="wrapper flex-grow-11 relative mt-4 h-full w-full">
+		<div class="absolute left-0 top-0 -z-10 h-full w-full">
 			<div
 				[appPlaygroundHighlight]="input()"
 				[scrollTop]="scrollTop()"
-				class="break-words m-0 rounded h-full w-full py-2 px-3 whitespace-pre-wrap tracking-widest bg-gray-200 text-black dark:text-gray-200 dark:bg-gray-700 overflow-auto"
+				class="m-0 h-full w-full overflow-auto whitespace-pre-wrap break-words rounded bg-gray-200 px-3 py-2 font-mono tracking-widest text-black dark:bg-gray-700 dark:text-gray-200"
 			></div>
 		</div>
 		<label for="testString">
 			<textarea
-				class="resize-none top-0 left-0 m-0 rounded h-full w-full py-2 px-3 focus:outline-none focus:shadow-outline tracking-widest text-black dark:text-gray-200 bg-transparent shadow"
+				class="focus:shadow-outline left-0 top-0 m-0 h-full w-full resize-none rounded bg-transparent px-3 py-2 font-mono tracking-widest text-black shadow focus:outline-none dark:text-gray-200"
 				id="testString"
 				placeholder="insert your test string here"
 				(input)="input.set($any($event.target).value)"
