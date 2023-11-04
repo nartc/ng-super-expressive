@@ -81,8 +81,10 @@ export default class Playground {
 				if (vimMode) {
 					vimMode.dispose();
 					vimMode = null;
+					editor.updateOptions({ lineNumbers: 'on' });
 				} else {
 					vimMode = monacoVim.initVimMode(editor, this.vimStatusBarDiv.nativeElement);
+					editor.updateOptions({ lineNumbers: 'relative' });
 				}
 			},
 		});
