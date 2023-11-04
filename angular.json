@@ -61,19 +61,19 @@
 								"input": "node_modules/monaco-editor",
 								"output": "/assets/monaco/"
 							}
-						]
+						],
+						"styles": ["src/font.css", "src/styles.css"],
+						"externalDependencies": ["assets/*"]
 					},
 					"configurations": {
 						"production": {
 							"outputHashing": "all",
-							"baseHref": "/ng-super-expressive/",
-							"styles": ["src/font.prod.css", "src/styles.css"]
+							"baseHref": "/ng-super-expressive/"
 						},
 						"development": {
 							"optimization": false,
 							"extractLicenses": false,
-							"sourceMap": true,
-							"styles": ["src/font.css", "src/styles.css"]
+							"sourceMap": true
 						}
 					},
 					"defaultConfiguration": "production"
