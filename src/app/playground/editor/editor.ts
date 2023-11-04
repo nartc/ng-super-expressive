@@ -29,6 +29,9 @@ export class Editor {
 		formatOnType: true,
 		formatOnPaste: true,
 		autoDetectHighContrast: true,
+		minimap: {
+			enabled: false,
+		},
 	};
 	protected isInit = signal(false);
 

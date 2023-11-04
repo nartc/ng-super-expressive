@@ -2,8 +2,12 @@
 	<app-playground-nav />
 	<div class="flex flex-grow">
 		<div class="grid w-full grid-cols-1 gap-4 p-4 lg:grid-cols-5">
-			<section class="col-auto lg:col-span-3">
+			<section class="relative col-auto lg:col-span-3">
 				<app-playground-editor [onInit]="onEditorInit" />
+				<div
+					#vimStatusBar
+					class="absolute bottom-0 w-full bg-background-dark font-mono text-white dark:bg-background dark:text-black"
+				></div>
 			</section>
 			<section class="col-auto lg:col-span-2">
 				<app-playground-result />

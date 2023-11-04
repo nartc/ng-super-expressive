@@ -44,6 +44,9 @@ dependencies:
   monaco-editor:
     specifier: ^0.44.0
     version: 0.44.0
+  monaco-vim:
+    specifier: ^0.4.0
+    version: 0.4.0(monaco-editor@0.44.0)
   ngx-monaco-editor-v2:
     specifier: ^16.0.1
     version: 16.0.1(@angular/common@17.0.0-rc.2)(@angular/core@17.0.0-rc.2)(monaco-editor@0.44.0)
@@ -5425,6 +5428,14 @@ packages:
 
   /monaco-editor@0.44.0:
     resolution: {integrity: sha512-5SmjNStN6bSuSE5WPT2ZV+iYn1/yI9sd4Igtk23ChvqB7kDk9lZbB9F5frsuvpB+2njdIeGGFf2G4gbE6rCC9Q==}
+    dev: false
+
+  /monaco-vim@0.4.0(monaco-editor@0.44.0):
+    resolution: {integrity: sha512-+CsW0+Mvx2+eitkXS7OpUXIu57qXlqAL8oVkYhkPCEZ/c6+6gOp/IcG7w+Lb33YiZuTyvJ891+czkeJRPIEwVA==}
+    peerDependencies:
+      monaco-editor: '*'
+    dependencies:
+      monaco-editor: 0.44.0
     dev: false
 
   /mrmime@1.0.1:

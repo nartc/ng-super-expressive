@@ -1,5 +1,12 @@
 import { DOCUMENT } from '@angular/common';
-import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	DestroyRef,
+	ElementRef,
+	ViewChild,
+	inject,
+} from '@angular/core';
 import type { editor } from 'monaco-editor';
 import { Editor } from './editor/editor';
 import { Footer } from './footer/footer';
@@ -8,9 +15,11 @@ import { Nav } from './nav/nav';
 import { injectOutput, provideOutput } from './output';
 import { Result } from './result/result';
 
+// @ts-expect-error
+import * as monacoVim from 'monaco-vim';
+
 // const initialValue = 'SuperExpressive()';
-const initialValue = `
-SuperExpressive()
+const initialValue = `SuperExpressive()
     .allowMultipleMatches
     .lineByLine
     .oneOrMore.anyChar
@@ -35,6 +44,8 @@ export default class Playground {
 	private window = inject(DOCUMENT).defaultView!;
 	private regexOutput = injectOutput();
 
+	@ViewChild('vimStatusBar', { static: true }) vimStatusBarDiv!: ElementRef<HTMLDivElement>;
+
 	protected onEditorInit = (editor: editor.IStandaloneCodeEditor) => {
 		const { monaco } = this.window;
 
@@ -56,7 +67,30 @@ export default class Playground {
 			},
 		});
 
-		this.destroyRef.onDestroy(action.dispose.bind(action));
+		let vimMode: { dispose: () => void } | null = null;
+		const vimAction = editor.addAction({
+			id: 'toggle-vim',
+			label: 'Toggle VIM mode',
+			keybindings: [
+				monaco.KeyMod.WinCtrl | monaco.KeyMod.Shift | monaco.KeyCode.Enter,
+				monaco.KeyMod.CtrlCmd | monaco.KeyMod.Shift | monaco.KeyCode.Enter,
+			],
+			contextMenuGroupId: '1_modification',
+			contextMenuOrder: 2,
+			run: (editor) => {
+				if (vimMode) {
+					vimMode.dispose();
+					vimMode = null;
+				} else {
+					vimMode = monacoVim.initVimMode(editor, this.vimStatusBarDiv.nativeElement);
+				}
+			},
+		});
+
+		this.destroyRef.onDestroy(() => {
+			action.dispose();
+			vimAction.dispose();
+		});
 	};
 
 	private onExecute(rawValue: string) {
