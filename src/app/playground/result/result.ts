@@ -1,6 +1,6 @@
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { Component, signal } from '@angular/core';
-import { injectOutput } from '../output';
+import { injectOutput } from '../di/output';
 import { Highlight } from './highlight';
 
 @Component({

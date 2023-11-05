@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { injectTheme } from '../../../theme';
+import { injectTheme } from '../../../di/theme';
 
 @Component({
 	selector: 'app-theme-switcher',

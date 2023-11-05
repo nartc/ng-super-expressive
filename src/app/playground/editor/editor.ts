@@ -1,7 +1,7 @@
 import { Component, Input, signal } from '@angular/core';
 import type { editor } from 'monaco-editor';
 import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
-import { injectTheme } from '../../theme';
+import { injectTheme } from '../../di/theme';
 
 @Component({
 	selector: 'app-playground-editor',

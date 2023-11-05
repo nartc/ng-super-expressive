@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Input, effect, inject, signal } from '@angular/core';
-import { injectOutput } from '../output';
+import { injectOutput } from '../di/output';
 
 @Directive({ selector: 'div[appPlaygroundHighlight]', standalone: true })
 export class Highlight {

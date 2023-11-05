@@ -1,6 +1,6 @@
 import type { ApplicationConfig } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { provideThemeInitializer } from './theme';
+import { provideThemeInitializer } from './di/theme';
 
 export const appConfig: ApplicationConfig = {
 	providers: [
