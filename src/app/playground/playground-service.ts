@@ -23,9 +23,9 @@ const initialValue = `SuperExpressive()
 
 export const [injectPlaygroundService, providePlaygroundService] = createInjectionToken(
 	() => {
-		const { onDestroy } = inject(DestroyRef);
+		const destroyRef = inject(DestroyRef);
 		const regexpOutput = injectOutput();
-		const { monaco } = inject(DOCUMENT).defaultView!;
+		const window = inject(DOCUMENT).defaultView!;
 
 		const vimStatusBarDiv = signal<HTMLDivElement | null>(null);
 		let vimMode: { dispose: () => void } | null = null;
@@ -59,6 +59,8 @@ export const [injectPlaygroundService, providePlaygroundService] = createInjecti
 		};
 
 		const onEditorInit = (editor: editor.IStandaloneCodeEditor) => {
+			const monaco = window.monaco;
+
 			editor.setValue(initialValue);
 			editor.focus();
 			editor.setPosition({ lineNumber: 1, column: initialValue.length + 1 });
@@ -98,7 +100,7 @@ export const [injectPlaygroundService, providePlaygroundService] = createInjecti
 				},
 			});
 
-			onDestroy(() => {
+			destroyRef.onDestroy(() => {
 				action.dispose();
 				vimAction.dispose();
 			});
