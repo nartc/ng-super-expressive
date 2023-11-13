@@ -75,9 +75,7 @@ export const [injectPlaygroundService, providePlaygroundService] = createInjecti
 					id: 'execute',
 					label: 'Execute',
 					keybindings: [
-						// @ts-expect-error KeyCode is an Enum
 						monaco.KeyMod.WinCtrl | monaco.KeyCode.Enter,
-						// @ts-expect-error KeyCode is an Enum
 						monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter,
 					],
 					contextMenuGroupId: '1_modification',
@@ -90,9 +88,7 @@ export const [injectPlaygroundService, providePlaygroundService] = createInjecti
 					id: 'toggle-vim',
 					label: 'Toggle VIM mode',
 					keybindings: [
-						// @ts-expect-error KeyCode is an Enum
 						monaco.KeyMod.WinCtrl | monaco.KeyMod.Shift | monaco.KeyCode.Enter,
-						// @ts-expect-error KeyCode is an Enum
 						monaco.KeyMod.CtrlCmd | monaco.KeyMod.Shift | monaco.KeyCode.Enter,
 					],
 					contextMenuGroupId: '1_modification',
