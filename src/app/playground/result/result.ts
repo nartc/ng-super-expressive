@@ -18,7 +18,7 @@ export class Result {
 	protected copyText = signal('Copy');
 
 	protected onCopied(didCopy: boolean) {
-		if (!didCopy) return;
+		if (!didCopy || this.copyText() !== 'Copy') return;
 		this.copyText.set('Copied!');
 		setTimeout(() => {
 			this.copyText.set('Copy');

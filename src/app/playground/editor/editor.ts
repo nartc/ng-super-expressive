@@ -24,8 +24,8 @@ export class Editor {
 	protected editorOptions: editor.IStandaloneEditorConstructionOptions = {
 		theme: `vs-${this.theme.computedTheme()}`,
 		language: 'typescript',
-		fontSize: 16,
 		fontFamily: 'Geist Mono',
+		fontSize: 16,
 		formatOnType: true,
 		formatOnPaste: true,
 		autoDetectHighContrast: true,
