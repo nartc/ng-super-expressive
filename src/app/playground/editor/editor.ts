@@ -8,12 +8,6 @@ import { injectTheme } from '../../di/theme';
 	standalone: true,
 	templateUrl: './editor.html',
 	host: { class: 'contents' },
-	styles: `
-        .super-expressive-editor,
-        .super-expressive-editor ::ng-deep .editor-container {
-            @apply h-full;
-        }
-    `,
 	imports: [MonacoEditorModule],
 })
 export class Editor {
@@ -29,9 +23,7 @@ export class Editor {
 		formatOnType: true,
 		formatOnPaste: true,
 		autoDetectHighContrast: true,
-		minimap: {
-			enabled: false,
-		},
+		minimap: { enabled: false },
 	};
 	protected isInit = signal(false);
 
